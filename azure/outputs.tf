@@ -20,3 +20,11 @@ resource "local_file" "kubeconfig" {
   filename     = "kubeconfig"
   content      = azurerm_kubernetes_cluster.aks.kube_config_raw
 }
+
+output "rg" {
+  value = azurerm_kubernetes_cluster.aks.resource_group_name
+}
+
+output "aks_name" {
+  value = azurerm_kubernetes_cluster.aks.name
+}
