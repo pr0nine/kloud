@@ -77,7 +77,7 @@ terraform apply
 Once deployed, configure your local `kubectl`:
 
 ```text-plain
-az aks get-credentials --resource-group my-project-rg --name prod-aks-cluster
+az aks get-credentials --resource-group $(terraform output -raw rg) --name $(terraform output -raw aks_name)
 kubectl get nodes
 ```
 
