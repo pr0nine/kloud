@@ -1,3 +1,7 @@
+locals {
+  cluster_name  = var.cluster_name
+}
+
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
   version         = "~> 21.0"
@@ -18,15 +22,15 @@ module "eks" {
   tags = {
     cluster = "iac"
   }
- 
+
   eks_managed_node_groups = {
     ng1 = {
-      ami_type       = "AL2023_ARM_64_STANDARD"
-      instance_types = ["t4g.small"]
+      ami_type       = var.ami_type
+      instance_types = [var.instance_type]
 
-      min_size     = 2
-      max_size     = 4
-      desired_size = 2
+      min_size     = var.min_size  
+      max_size     = var.max_size
+      desired_size = var.desired_size
       vpc_security_group_ids = [aws_security_group.ng1_sg.id,module.eks.node_security_group_id]
     }
   }
